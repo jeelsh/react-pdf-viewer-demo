@@ -6,8 +6,9 @@ import Zoom from './zoom';
 import SliderNav from './slider-nav/slider-nav';
 import useScreenSize from '@/app/_hooks/use-screensize';
 import Share from '../../share';
+import IndexToggleButton from '../index/index-toggle-button';
 
-const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStates, shareUrl, disableShare }) => {
+const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStates, shareUrl, disableShare, isIndexVisible, onIndexToggle }) => {
     const { width: screenWidth } = useScreenSize();
     const pagesInFlipView = ((viewerStates.currentPageIndex + 1) % 2 === 0 && (viewerStates.currentPageIndex + 1) !== pdfDetails.totalPages)
         ? `${(viewerStates.currentPageIndex + 1)} - ${viewerStates.currentPageIndex + 2}`
@@ -48,6 +49,10 @@ const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStat
                 screenWidth={screenWidth}
             />
             <div className="flex items-center gap-2 pb-2 max-xl:pt-2">
+                <IndexToggleButton 
+                    isIndexVisible={isIndexVisible} 
+                    onToggle={onIndexToggle} 
+                />
                 <div className="hidden lg:block flex-1"></div>
                 <Button
                     onClick={() => { screenWidth < 768 ? flipbookRef.current.pageFlip().turnToPrevPage() : flipbookRef.current.pageFlip().flipPrev() }}
