@@ -38,7 +38,7 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
   }, []);
 
   return (
-    <div ref={containerRef} className={cn("relative h-[20.163rem] xs:h-[25.163rem] lg:h-[33.163rem] xl:h-[34.66rem] bg-foreground w-full overflow-hidden", className)}>
+    <div ref={containerRef} className={cn("relative h-[100vh] bg-foreground w-full overflow-hidden", className)}>
       {pdfLoading && <PdfLoading />}
       <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} loading={<></>} >
         {(pdfDetails && !pdfLoading) &&
