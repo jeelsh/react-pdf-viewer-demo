@@ -18,7 +18,7 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
   const flipbookRef = useRef();
   const [pdfLoading, setPdfLoading] = useState(true);
   const [pdfDetails, setPdfDetails] = useState(null);
-  const [isIndexVisible, setIsIndexVisible] = useState(false);
+  const [isIndexVisible, setIsIndexVisible] = useState(true);
   const [viewerStates, setViewerStates] = useState({
     currentPageIndex: 0,
     zoomScale: 1,
