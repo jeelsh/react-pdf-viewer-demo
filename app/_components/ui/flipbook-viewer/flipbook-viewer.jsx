@@ -1,6 +1,7 @@
 'use client';
 import React, { useCallback, useRef, useState } from "react";
 import Toolbar from "./toolbar/toolbar";
+import Header from "./header/header";
 import { cn } from "@/app/_lib/utils";
 import Flipbook from "./flipbook/flipbook";
 import screenfull from 'screenfull';
@@ -66,7 +67,7 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
             maxScale={5}
             onTransformed={({ state }) => setViewerStates({ ...viewerStates, zoomScale: state.scale })}
           >
-            <div className="w-full relative bg-foreground flex flex-col justify-between h-screen">
+            <div className="w-full relative bg-foreground flex flex-col h-screen">
               {/* Table of Contents */}
               <TableOfContents
                 isVisible={isIndexVisible}
@@ -75,9 +76,18 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
                 currentPage={viewerStates.currentPageIndex}
               />
               
+              {/* Header */}
+              <Header
+                isIndexVisible={isIndexVisible}
+                onIndexToggle={handleIndexToggle}
+                pdfDetails={pdfDetails}
+                viewerStates={viewerStates}
+                documentTitle="Documento PDF"
+              />
+              
               {/* Main content area */}
               <div className={cn(
-                "transition-all duration-300 ease-in-out",
+                "flex-1 transition-all duration-300 ease-in-out",
                 isIndexVisible ? "ml-80" : "ml-0"
               )}>
                 <Flipbook
@@ -99,7 +109,6 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
                 shareUrl={shareUrl}
                 disableShare={disableShare}
                 isIndexVisible={isIndexVisible}
-                onIndexToggle={handleIndexToggle}
               />
             </div>
           </TransformWrapper >
