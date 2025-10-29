@@ -2,8 +2,11 @@
 import React, { useState } from 'react';
 import { ChevronRight, ChevronDown, FileText, BookOpen } from 'lucide-react';
 import { cn } from '@/app/_lib/utils';
+import useScreenSize from '@/app/_hooks/use-screensize';
 
 const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage }) => {
+  const { width: screenWidth } = useScreenSize();
+  const isMobile = screenWidth < 768; // md breakpoint
   const [expandedSections, setExpandedSections] = useState({
     introduction: true,
     chapter1: false,
@@ -48,14 +51,33 @@ const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage }) => 
 
   const handlePageClick = (pageNumber) => {
     onPageSelect(pageNumber - 1); // Convert to 0-based index
+    // Auto-close index on mobile after selection
+    if (isMobile) {
+      onToggle();
+    }
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className="absolute left-0 top-0 h-full w-80 bg-background border-r border-border shadow-lg z-10 flex flex-col">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-border">
+    <>
+      {/* Overlay for mobile/tablet */}
+      {(isMobile || screenWidth < 1024) && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40"
+          onClick={onToggle}
+          aria-label="Cerrar índice"
+        />
+      )}
+      
+      <div className={cn(
+        "left-0 top-0 h-full w-80 bg-background border-r border-border shadow-lg z-50 flex flex-col",
+        isMobile || screenWidth < 1024 
+          ? "fixed" // Use fixed positioning on mobile and tablet to avoid pushing other elements
+          : "absolute" // Use absolute positioning on desktop
+      )}>
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center gap-2">
           <BookOpen className="h-5 w-5 text-primary" />
           <h2 className="font-semibold text-foreground">Índice</h2>
@@ -146,6 +168,7 @@ const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage }) => 
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -9,12 +9,15 @@ import { TransformWrapper } from "react-zoom-pan-pinch";
 import { Document } from "react-pdf";
 import PdfLoading from "./pad-loading/pdf-loading";
 import TableOfContents from "./index/table-of-contents";
+import useScreenSize from "@/app/_hooks/use-screensize";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 import { pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
 const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
+  const { width: screenWidth } = useScreenSize();
+  const isMobileOrTablet = screenWidth < 1024; // lg breakpoint
   const containerRef = useRef(); // For full screen container
   const flipbookRef = useRef();
   const [pdfLoading, setPdfLoading] = useState(true);
@@ -88,7 +91,8 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
               {/* Main content area */}
               <div className={cn(
                 "flex-1 transition-all duration-300 ease-in-out",
-                isIndexVisible ? "ml-80" : "ml-0"
+                // Only apply margin on desktop (lg and up), not on mobile/tablet
+                !isMobileOrTablet && isIndexVisible ? "ml-80" : "ml-0"
               )}>
                 <Flipbook
                   viewerStates={viewerStates}

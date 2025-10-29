@@ -3,6 +3,7 @@ import React from 'react';
 import { FileText, Book } from 'lucide-react';
 import IndexToggleButton from '../index/index-toggle-button';
 import { cn } from '@/app/_lib/utils';
+import useScreenSize from '@/app/_hooks/use-screensize';
 
 const Header = ({ 
   isIndexVisible, 
@@ -11,15 +12,18 @@ const Header = ({
   viewerStates, 
   documentTitle = "Documento PDF" 
 }) => {
+  const { width: screenWidth } = useScreenSize();
+  const isMobileOrTablet = screenWidth < 1024; // lg breakpoint
   const currentPage = viewerStates?.currentPageIndex + 1 || 1;
   const totalPages = pdfDetails?.totalPages || 0;
 
   return (
-    <div className={cn(
-      "w-full bg-background border-b border-border transition-all duration-300 ease-in-out",
-      isIndexVisible ? "ml-80" : "ml-0"
-    )}>
-      <div className="flex items-center justify-between px-4 py-3">
+    <div className="w-full bg-background border-b border-border">
+      <div className={cn(
+        "flex items-center justify-between px-4 py-3 transition-all duration-300 ease-in-out",
+        // Only apply margin on desktop (lg and up), not on mobile/tablet
+        !isMobileOrTablet && isIndexVisible ? "ml-80" : "ml-0"
+      )}>
         {/* Left section - Index toggle and document info */}
         <div className="flex items-center gap-4">
           <IndexToggleButton 

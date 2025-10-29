@@ -9,6 +9,7 @@ import Share from '../../share';
 
 const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStates, shareUrl, disableShare, isIndexVisible }) => {
     const { width: screenWidth } = useScreenSize();
+    const isMobileOrTablet = screenWidth < 1024; // lg breakpoint
     const pagesInFlipView = ((viewerStates.currentPageIndex + 1) % 2 === 0 && (viewerStates.currentPageIndex + 1) !== pdfDetails.totalPages)
         ? `${(viewerStates.currentPageIndex + 1)} - ${viewerStates.currentPageIndex + 2}`
         : (viewerStates.currentPageIndex + 1)
@@ -40,13 +41,14 @@ const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStat
     }, [flipbookRef, fullScreen]);
 
     return (
-        <div className={`px-3 w-full bg-background transition-all duration-300 ease-in-out ${isIndexVisible ? 'ml-80' : 'ml-0'}`}>
-            <SliderNav
-                flipbookRef={flipbookRef}
-                pdfDetails={pdfDetails}
-                viewerStates={viewerStates}
-                screenWidth={screenWidth}
-            />
+        <div className="w-full bg-background">
+            <div className={`px-3 transition-all duration-300 ease-in-out ${!isMobileOrTablet && isIndexVisible ? 'ml-80' : 'ml-0'}`}>
+                <SliderNav
+                    flipbookRef={flipbookRef}
+                    pdfDetails={pdfDetails}
+                    viewerStates={viewerStates}
+                    screenWidth={screenWidth}
+                />
             <div className="flex items-center gap-2 pb-2 max-xl:pt-2">
                 <div className="hidden lg:block flex-1"></div>
                 <Button
@@ -86,6 +88,7 @@ const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStat
                         {pagesInFlipView} of {pdfDetails?.totalPages}
                     </p>
                 )}
+            </div>
             </div>
         </div>
     );
