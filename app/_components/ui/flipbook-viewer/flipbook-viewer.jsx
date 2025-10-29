@@ -66,7 +66,7 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
             maxScale={5}
             onTransformed={({ state }) => setViewerStates({ ...viewerStates, zoomScale: state.scale })}
           >
-            <div className="w-full relative bg-foreground flex flex-col justify-between">
+            <div className="w-full relative bg-foreground flex flex-col justify-between h-screen">
               {/* Table of Contents */}
               <TableOfContents
                 isVisible={isIndexVisible}

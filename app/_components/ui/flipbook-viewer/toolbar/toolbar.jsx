@@ -41,7 +41,7 @@ const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStat
     }, [flipbookRef, fullScreen]);
 
     return (
-        <div className="px-3 w-full bg-background">
+        <div className={`px-3 w-full bg-background transition-all duration-300 ease-in-out ${isIndexVisible ? 'ml-80' : 'ml-0'}`}>
             <SliderNav
                 flipbookRef={flipbookRef}
                 pdfDetails={pdfDetails}
