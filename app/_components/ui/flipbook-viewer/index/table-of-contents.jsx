@@ -11,33 +11,104 @@ const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage }) => 
     introduction: true,
     chapter1: false,
     chapter2: false,
+    salsaClasica: true,
+    concentradoTomate: true,
+    salsaBolognesa: true,
+    salsaCasera: true,
     conclusion: false,
   });
 
   // Datos de ejemplo para el índice
   const tableOfContents = [
+    // Sección agregada desde el contenido provisto (Salsa Clásica)
     {
-      id: 'introduction',
-      title: 'Introducción',
-      page: 1,
-      children: [
-        { id: 'intro-1', title: 'Introducción del documento', page: 1 },
-      ]
-    },
-    {
-      id: 'chapter1',
-      title: 'Capítulo 1',
-      page: 2,
-      children: [
-        { id: 'ch1-1', title: 'Capítulo 1 - intro', page: 2 },
-      ]
-    },
-    {
-      id: 'chapter2',
-      title: 'Capítulo 2: Desarrollo',
+      id: 'salsaClasica',
+      title: 'Salsa Clásica',
       page: 4,
       children: [
-        { id: 'ch2-1', title: 'Análisis de requisitos', page: 4 },
+        { id: 'sc-alitas-bbq', title: 'Alitas BBQ con papas fritas', page: 4 },
+        { id: 'sc-coctel-langostinos', title: 'Cóctel de langostinos en salsa rosé', page: 4 },
+        { id: 'sc-noquis-veg', title: 'Ñoquis con salsa vegetariana', page: 4 },
+        { id: 'sc-wantan-tamarindo', title: 'Wantán frito con salsa tamarindo', page: 4 },
+        { id: 'sc-albondigas-arroz', title: 'Albóndigas con arroz', page: 4 },
+        { id: 'sc-rigatonis-arrabbiata', title: 'Rigatónis con salsa arrabbiata', page: 4 },
+        { id: 'sc-berenjena-rellena', title: 'Berenjena rellena', page: 4 },
+        { id: 'sc-arroz-mariscos', title: 'Arroz con mariscos', page: 4 },
+        { id: 'sc-pizza-carnivora', title: 'Pizza carnívora', page: 4 },
+        { id: 'sc-pizza-margarita', title: 'Pizza margarita', page: 4 },
+        { id: 'sc-pizza-veggie', title: 'Pizza veggie', page: 4 },
+        { id: 'sc-pastel-fideos', title: 'Pastel de fideos', page: 4 },
+        { id: 'sc-fajitas-pomarola', title: 'Fajitas Pomarola', page: 4 },
+        { id: 'sc-lasagna-rose', title: 'Lasagna rosé', page: 4 },
+        { id: 'sc-pollo-entomatado', title: 'Pollo entomatado', page: 4 },
+        { id: 'sc-lasagna-clasica', title: 'Lasagna clásica', page: 4 },
+        { id: 'sc-tallarines-atun', title: 'Tallarines con albóndigas de atún', page: 4 },
+        { id: 'sc-tequenos-agridulce', title: 'Tequeños orientales con salsa agridulce', page: 4 },
+        { id: 'sc-lasagna-atun', title: 'Lasagna de atún', page: 4 },
+        { id: 'sc-alitas-bbq-tropical', title: 'Alitas en salsa BBQ tropical', page: 4 },
+        { id: 'sc-pizza-avena', title: 'Pizza a base de avena', page: 4 },
+      ]
+    },
+    // Sección agregada: Concentrado de Tomate
+    {
+      id: 'concentradoTomate',
+      title: 'Concentrado de Tomate',
+      page: 5,
+      children: [
+        { id: 'ct-lentejas-pollo-horno', title: 'Lentejas con pollo al horno', page: 5 },
+        { id: 'ct-garbanzos-seco-cordero', title: 'Garbanzos con seco de cordero', page: 5 },
+        { id: 'ct-trigo-queso', title: 'Trigo con queso', page: 5 },
+        { id: 'ct-pallares-seco-res', title: 'Pallares con seco de res', page: 5 },
+        { id: 'ct-arvejas-con-res', title: 'Arvejas con res', page: 5 },
+        { id: 'ct-parihuela', title: 'Parihuela', page: 5 },
+        { id: 'ct-relleno-arepas', title: 'Relleno de arepas', page: 5 },
+        { id: 'ct-ossobuco-vino', title: 'Ossobuco al vino', page: 5 },
+        { id: 'ct-tornillos-rose-pollo-finas-hierbas', title: 'Tornillos en salsa rosé con pollo a las finas hierbas', page: 5 },
+        { id: 'ct-chupe-pescado', title: 'Chupe de pescado', page: 5 },
+        { id: 'ct-papa-rellena', title: 'Papa rellena', page: 5 },
+        { id: 'ct-picante-mariscos', title: 'Picante de mariscos', page: 5 },
+        { id: 'ct-pescado-lo-macho', title: 'Pescado a lo macho', page: 5 },
+        { id: 'ct-asado-res', title: 'Asado de res', page: 5 },
+        { id: 'ct-tallarines-vino-vegetales-carne', title: 'Tallarines en salsa de vino, vegetales y carne', page: 5 },
+        { id: 'ct-estofado-carne', title: 'Estofado de carne', page: 5 },
+        { id: 'ct-guiso-atun', title: 'Guiso de atún', page: 5 },
+        { id: 'ct-arroz-tapado', title: 'Arroz tapado', page: 5 },
+        { id: 'ct-caigua-rellena', title: 'Caigua rellena', page: 5 },
+        { id: 'ct-pimiento-verde-relleno', title: 'Pimiento verde relleno', page: 5 },
+        { id: 'ct-frejoles-entomatados', title: 'Frejoles entomatados', page: 5 },
+        { id: 'ct-empanada', title: 'Empanada', page: 5 },
+        { id: 'ct-sopa-criolla', title: 'Sopa criolla', page: 5 },
+        { id: 'ct-estofado-amazonico', title: 'Estofado amazónico', page: 5 },
+        { id: 'ct-estofado-pavita', title: 'Estofado de pavita', page: 5 },
+        { id: 'ct-arroz-chancho', title: 'Arroz con chancho', page: 5 },
+      ]
+    },
+    // Sección agregada: Salsa Bolognesa
+    {
+      id: 'salsaBolognesa',
+      title: 'Salsa Bolognesa',
+      page: 6,
+      children: [
+        { id: 'sb-canelones-rellenos', title: 'Canelones rellenos', page: 6 },
+        { id: 'sb-spaghetti-bolognesa', title: 'Spaghetti a la bolognesa', page: 6 },
+        { id: 'sb-ravioles-bolognesa', title: 'Ravioles a la bolognesa', page: 6 },
+        { id: 'sb-canutos-gratinados-bolognesa', title: 'Canutos gratinados a la bolognesa', page: 6 },
+        { id: 'sb-pastel-papa-bolognesa', title: 'Pastel de papa a la bolognesa', page: 6 },
+      ]
+    },
+    // Sección agregada: Salsa Casera
+    {
+      id: 'salsaCasera',
+      title: 'Salsa Casera',
+      page: 7,
+      children: [
+        { id: 'scas-fideos-salsa-casera-pollo', title: 'Fideos con salsa casera y pollo', page: 7 },
+        { id: 'scas-coditos-vegetales', title: 'Coditos en salsa de vegetales', page: 7 },
+        { id: 'scas-lasagna-berenjena', title: 'Lasagna de berenjena', page: 7 },
+        { id: 'scas-berenjena-parmesana', title: 'Berenjena a la parmesana', page: 7 },
+        { id: 'scas-milanesas-napolitana', title: 'Milanesas de carne a la napolitana', page: 7 },
+        { id: 'scas-pechugas-rellenas', title: 'Pechugas de pollo rellenas', page: 7 },
+        { id: 'scas-zapallo-relleno', title: 'Zapallo relleno con salsa Pomarola', page: 7 },
       ]
     }
   ];

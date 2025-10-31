@@ -5,27 +5,34 @@ import FlipbookLoader from './flipbook-loader';
 import { cn } from '@/app/_lib/utils';
 import { TransformComponent } from 'react-zoom-pan-pinch';
 import screenfull from 'screenfull';
+import useScreenSize from '@/app/_hooks/use-screensize';
 
 const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails }) => {
     const { ref, width, height, refreshSize } = useRefSize();
     const [scale, setScale] = useState(1); // Max scale for flipbook
     const [wrapperCss, setWrapperCss] = useState({});
     const [viewRange, setViewRange] = useState([0, 4]);
+    const { width: screenWidth } = useScreenSize();
+    const isMobile = screenWidth < 768;
 
     // Calculate scale when pageSize or dimensions change >>>>>>>>
+    // Responsive: on mobile (<768px) we render a single page and compute scale/size for 1 page;
+    // on desktop we render a spread (2 pages) and compute scale/size for 2 pages.
     useEffect(() => {
         if (pdfDetails && width && height) {
+            // Single page on mobile, double page on desktop
+            const pageWidthCount = isMobile ? 1 : 2;
             const calculatedScale = Math.min(
-                width / (2 * pdfDetails.width),
+                width / (pageWidthCount * pdfDetails.width),
                 height / pdfDetails.height
             );
             setScale(calculatedScale);
             setWrapperCss({
-                width: `${pdfDetails.width * calculatedScale * 2}px`,
+                width: `${pdfDetails.width * calculatedScale * pageWidthCount}px`,
                 height: `${pdfDetails.height * calculatedScale}px`,
             });
         }
-    }, [pdfDetails, width, height]);
+    }, [pdfDetails, width, height, isMobile]);
 
     // Refresh flipbook size & page range on window resize >>>>>>>>
     const shrinkPageLoadingRange = useCallback(() => {
@@ -63,6 +70,7 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails 
                                 setViewRange={setViewRange}
                                 viewerStates={viewerStates}
                                 setViewerStates={setViewerStates}
+                                isMobile={isMobile}
                             />
                         </div>
                     )}

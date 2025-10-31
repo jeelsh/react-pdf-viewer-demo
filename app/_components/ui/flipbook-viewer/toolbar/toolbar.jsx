@@ -10,9 +10,12 @@ import Share from '../../share';
 const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStates, shareUrl, disableShare, isIndexVisible }) => {
     const { width: screenWidth } = useScreenSize();
     const isMobileOrTablet = screenWidth < 1024; // lg breakpoint
-    const pagesInFlipView = ((viewerStates.currentPageIndex + 1) % 2 === 0 && (viewerStates.currentPageIndex + 1) !== pdfDetails.totalPages)
-        ? `${(viewerStates.currentPageIndex + 1)} - ${viewerStates.currentPageIndex + 2}`
-        : (viewerStates.currentPageIndex + 1)
+    const isMobile = screenWidth < 768;
+    const pagesInFlipView = isMobile
+        ? (viewerStates.currentPageIndex + 1)
+        : ((viewerStates.currentPageIndex + 1) % 2 === 0 && (viewerStates.currentPageIndex + 1) !== pdfDetails.totalPages)
+            ? `${(viewerStates.currentPageIndex + 1)} - ${viewerStates.currentPageIndex + 2}`
+            : (viewerStates.currentPageIndex + 1)
 
     // Full screen >>>>>>>>>
     const fullScreen = useCallback(() => {
@@ -52,7 +55,7 @@ const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStat
             <div className="flex items-center gap-2 pb-2 max-xl:pt-2">
                 <div className="hidden lg:block flex-1"></div>
                 <Button
-                    onClick={() => { screenWidth < 768 ? flipbookRef.current.pageFlip().turnToPrevPage() : flipbookRef.current.pageFlip().flipPrev() }}
+                    onClick={() => { screenWidth < 768 ? flipbookRef.current.pageFlip().flipPrev() : flipbookRef.current.pageFlip().flipPrev() }}
                     disabled={viewerStates.currentPageIndex === 0}
                     variant='secondary'
                     size='icon'
@@ -61,8 +64,8 @@ const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStat
                     <ChevronLeft className="size-4 min-w-4" />
                 </Button>
                 <Button
-                    onClick={() => { screenWidth < 768 ? flipbookRef.current.pageFlip().turnToNextPage() : flipbookRef.current.pageFlip().flipNext() }}
-                    disabled={viewerStates.currentPageIndex === pdfDetails?.totalPages - 1 || viewerStates.currentPageIndex === pdfDetails?.totalPages - 2}
+                    onClick={() => { screenWidth < 768 ? flipbookRef.current.pageFlip().flipNext() : flipbookRef.current.pageFlip().flipNext() }}
+                    disabled={isMobile ? (viewerStates.currentPageIndex === pdfDetails?.totalPages - 1) : (viewerStates.currentPageIndex === pdfDetails?.totalPages - 1 || viewerStates.currentPageIndex === pdfDetails?.totalPages - 2)}
                     variant='secondary'
                     size='icon'
                     className='size-8 min-w-8'
