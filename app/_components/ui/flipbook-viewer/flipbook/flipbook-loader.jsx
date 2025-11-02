@@ -1,22 +1,19 @@
-import React, { forwardRef, memo, useCallback, useState } from 'react'
+import React, { forwardRef, memo, useCallback } from 'react'
 import HTMLFlipBook from 'react-pageflip'
 import PdfPage from './pdf-page'
 import { useDebounce } from '@/app/_hooks/use-debounce';
 import { cn } from '@/app/_lib/utils';
-import useScreenSize from '@/app/_hooks/use-screensize';
+
 const MemoizedPdfPage = memo(PdfPage)
 
 const FlipbookLoader = forwardRef(({ pdfDetails, scale, viewerStates, setViewerStates, viewRange, setViewRange, isMobile }, ref) => {
-    const { width } = useScreenSize();
     const debouncedZoom = useDebounce(viewerStates.zoomScale, 500);
-    const [dragStart, setDragStart] = useState(null);
-    const SWIPE_THRESHOLD = 35;
+
     // Check if page is in View range or in view window >>>>>>>>
     const isPageInViewRange = (index) => { return index >= viewRange[0] && index <= viewRange[1] };
     const isPageInView = (index) => {
-        return isMobile
-            ? viewerStates.currentPageIndex === index
-            : (viewerStates.currentPageIndex === index || viewerStates.currentPageIndex + 1 === index)
+        // Desktop behavior: show current and the next page as a spread
+        return viewerStates.currentPageIndex === index || viewerStates.currentPageIndex + 1 === index;
     };
 
     // Update pageViewRange on page flip >>>>>>>>
@@ -47,15 +44,15 @@ const FlipbookLoader = forwardRef(({ pdfDetails, scale, viewerStates, setViewerS
                 size="fixed"
                 autoSize={false}
                 drawShadow={true}
-                maxShadowOpacity={0.35}
-                flippingTime={900}
-                swipeDistance={20}
-                // Keep spreads (two pages) on desktop like before; allow single page on mobile
+                maxShadowOpacity={0.45}
+                flippingTime={700}
+                swipeDistance={30}
+                // Mobile: single page; Desktop: spread
                 usePortrait={isMobile ? true : false}
                 showCover={true}
-                showPageCorners={false}
+                showPageCorners={true}
                 onFlip={onFlip}
-                disableFlipByClick={width < 768 ? true : false}
+                disableFlipByClick={isMobile}
                 className={cn(viewerStates.zoomScale > 1 && 'pointer-events-none md:pointer-events-none')}
             >
                 {
@@ -71,31 +68,7 @@ const FlipbookLoader = forwardRef(({ pdfDetails, scale, viewerStates, setViewerS
                     ))
                 }
             </HTMLFlipBook >
-            {/* Gesture overlay for mobile: detect drag direction to flip pages */}
-            {width < 768 && viewerStates.zoomScale <= 1 && (
-                <div
-                    className="absolute inset-0 z-40"
-                    style={{ touchAction: 'pan-y', userSelect: 'none' }}
-                    onPointerDown={(e) => setDragStart({ x: e.clientX, y: e.clientY })}
-                    onPointerUp={(e) => {
-                        if (!dragStart) return;
-                        const dx = e.clientX - dragStart.x;
-                        const dy = e.clientY - dragStart.y;
-                        // Horizontal swipe with enough distance wins
-                        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE_THRESHOLD) {
-                            if (dx < 0) {
-                                // swipe left -> next page
-                                ref?.current?.pageFlip()?.flipNext();
-                            } else {
-                                // swipe right -> previous page
-                                ref?.current?.pageFlip()?.flipPrev();
-                            }
-                        }
-                        setDragStart(null);
-                    }}
-                    onPointerCancel={() => setDragStart(null)}
-                />
-            )}
+            {/* Mobile gesture overlay removed: desktop-only behavior */}
             {/* <p className="text-background absolute z-50 top-0 -left-10">{viewRange[0] + '-' + viewRange[1]}</p> */}
         </div>
     )

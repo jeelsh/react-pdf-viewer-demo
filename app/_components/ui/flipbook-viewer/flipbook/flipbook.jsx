@@ -12,18 +12,20 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails 
     const [scale, setScale] = useState(1); // Max scale for flipbook
     const [wrapperCss, setWrapperCss] = useState({});
     const [viewRange, setViewRange] = useState([0, 4]);
+
     const { width: screenWidth } = useScreenSize();
     const isMobile = screenWidth < 768;
+    // Horizontal padding (px) to create side space without breaking scale
+    const horizontalPadding = screenWidth < 640 ? 16 : screenWidth < 1024 ? 24 : 40;
 
     // Calculate scale when pageSize or dimensions change >>>>>>>>
-    // Responsive: on mobile (<768px) we render a single page and compute scale/size for 1 page;
-    // on desktop we render a spread (2 pages) and compute scale/size for 2 pages.
+    // Mobile: single page; Desktop: two-page spread. Animation params remain in loader.
     useEffect(() => {
         if (pdfDetails && width && height) {
-            // Single page on mobile, double page on desktop
             const pageWidthCount = isMobile ? 1 : 2;
+            const availableWidth = Math.max(0, width - (horizontalPadding * 2));
             const calculatedScale = Math.min(
-                width / (pageWidthCount * pdfDetails.width),
+                availableWidth / (pageWidthCount * pdfDetails.width),
                 height / pdfDetails.height
             );
             setScale(calculatedScale);
@@ -32,7 +34,7 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails 
                 height: `${pdfDetails.height * calculatedScale}px`,
             });
         }
-    }, [pdfDetails, width, height, isMobile]);
+    }, [pdfDetails, width, height, isMobile, horizontalPadding]);
 
     // Refresh flipbook size & page range on window resize >>>>>>>>
     const shrinkPageLoadingRange = useCallback(() => {
@@ -59,7 +61,8 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails 
     return (
         <div ref={ref} className={cn("relative h-[85vh] w-full bg-transparent flex justify-center items-center overflow-hidden", screenfull?.isFullscreen && 'h-[calc(100vh-5.163rem)] xs:h-[calc(100vh-5.163rem)] lg:h-[calc(100vh-5.163rem)] xl:h-[calc(100vh-4.66rem)]')}>
             <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }} contentStyle={{ width: "100%", height: "100%" }}>
-                <div className='overflow-hidden flex justify-center items-center h-full w-full'>
+                <div className='overflow-hidden flex justify-center items-center h-full w-full'
+                     style={{ paddingLeft: horizontalPadding, paddingRight: horizontalPadding }}>
                     {pdfDetails && scale && (
                         <div style={wrapperCss}>
                             <FlipbookLoader
