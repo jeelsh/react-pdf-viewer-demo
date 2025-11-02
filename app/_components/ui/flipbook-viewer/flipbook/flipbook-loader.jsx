@@ -50,7 +50,7 @@ const FlipbookLoader = forwardRef(({ pdfDetails, scale, viewerStates, setViewerS
                 swipeDistance={30}
                 // Mobile: single page portrait; Desktop: spread
                 usePortrait={!!isMobileOrTablet}
-                showCover={true}
+                showCover={!isMobileOrTablet}
                 showPageCorners={true}
                 onFlip={onFlip}
                 disableFlipByClick={false}
