@@ -6,7 +6,7 @@ import { cn } from '@/app/_lib/utils';
 
 const MemoizedPdfPage = memo(PdfPage)
 
-const FlipbookLoader = forwardRef(({ pdfDetails, scale, viewerStates, setViewerStates, viewRange, setViewRange, isMobile }, ref) => {
+const FlipbookLoader = forwardRef(({ pdfDetails, scale, viewerStates, setViewerStates, viewRange, setViewRange }, ref) => {
     const debouncedZoom = useDebounce(viewerStates.zoomScale, 500);
 
     // Check if page is in View range or in view window >>>>>>>>
@@ -47,12 +47,12 @@ const FlipbookLoader = forwardRef(({ pdfDetails, scale, viewerStates, setViewerS
                 maxShadowOpacity={0.45}
                 flippingTime={700}
                 swipeDistance={30}
-                // Mobile: single page; Desktop: spread
-                usePortrait={isMobile ? true : false}
+                // Always desktop spread
+                usePortrait={false}
                 showCover={true}
                 showPageCorners={true}
                 onFlip={onFlip}
-                disableFlipByClick={isMobile}
+                disableFlipByClick={false}
                 className={cn(viewerStates.zoomScale > 1 && 'pointer-events-none md:pointer-events-none')}
             >
                 {
