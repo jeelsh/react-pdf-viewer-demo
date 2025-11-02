@@ -22,7 +22,7 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
   const flipbookRef = useRef();
   const [pdfLoading, setPdfLoading] = useState(true);
   const [pdfDetails, setPdfDetails] = useState(null);
-  const [isIndexVisible, setIsIndexVisible] = useState(true);
+  const [isIndexVisible, setIsIndexVisible] = useState(!isMobileOrTablet);
   const [viewerStates, setViewerStates] = useState({
     currentPageIndex: 0,
     zoomScale: 1,
@@ -98,8 +98,8 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
                   viewerStates={viewerStates}
                   setViewerStates={setViewerStates}
                   flipbookRef={flipbookRef}
-                  screenfull={screenfull}
                   pdfDetails={pdfDetails}
+                  isMobileOrTablet={isMobileOrTablet}
                 />
               </div>
               
@@ -123,3 +123,4 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
 }
 
 export default FlipbookViewer;
+

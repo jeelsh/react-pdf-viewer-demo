@@ -6,7 +6,7 @@ import { cn } from '@/app/_lib/utils';
 import { TransformComponent } from 'react-zoom-pan-pinch';
 import screenfull from 'screenfull';
 
-const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails }) => {
+const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails, isMobileOrTablet }) => {
     const { ref, width, height, refreshSize } = useRefSize();
     const [scale, setScale] = useState(1); // Max scale for flipbook
     const [wrapperCss, setWrapperCss] = useState({});
@@ -16,10 +16,10 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails 
     const horizontalPadding = 32;
 
     // Calculate scale when pageSize or dimensions change >>>>>>>>
-    // Always two-page spread (desktop behavior). Animation params remain in loader.
+    // Single page on mobile, two-page spread on desktop. Animation params remain in loader.
     useEffect(() => {
         if (pdfDetails && width && height) {
-            const pageWidthCount = 2;
+            const pageWidthCount = isMobileOrTablet ? 1 : 2;
             const availableWidth = Math.max(0, width - (horizontalPadding * 2));
             const calculatedScale = Math.min(
                 availableWidth / (pageWidthCount * pdfDetails.width),
@@ -31,7 +31,7 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails 
                 height: `${pdfDetails.height * calculatedScale}px`,
             });
         }
-    }, [pdfDetails, width, height, horizontalPadding]);
+    }, [pdfDetails, width, height, horizontalPadding, isMobileOrTablet]);
 
     // Refresh flipbook size & page range on window resize >>>>>>>>
     const shrinkPageLoadingRange = useCallback(() => {
@@ -69,6 +69,7 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails 
                                 setViewRange={setViewRange}
                                 viewerStates={viewerStates}
                                 setViewerStates={setViewerStates}
+                                isMobileOrTablet={isMobileOrTablet}
                             />
                         </div>
                     )}
@@ -80,3 +81,4 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails 
 
 Flipbook.displayName = 'Flipbook';
 export default Flipbook;
+
