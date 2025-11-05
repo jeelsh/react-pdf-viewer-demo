@@ -57,7 +57,7 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
   }, []);
 
   return (
-    <div ref={containerRef} className={cn("relative h-[100vh] bg-foreground w-full overflow-hidden", className)}>
+    <div ref={containerRef} className={cn("relative h-svh bg-foreground w-full overflow-hidden", className)}>
       {pdfLoading && <PdfLoading />}
       <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} loading={<></>} >
         {(pdfDetails && !pdfLoading) &&
@@ -70,7 +70,7 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
             maxScale={5}
             onTransformed={({ state }) => setViewerStates({ ...viewerStates, zoomScale: state.scale })}
           >
-            <div className="w-full relative bg-foreground flex flex-col h-screen">
+            <div className="w-full relative bg-foreground flex flex-col h-svh">
               {/* Table of Contents */}
               <TableOfContents
                 isVisible={isIndexVisible}
