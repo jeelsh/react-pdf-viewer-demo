@@ -13,7 +13,7 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails,
     const [viewRange, setViewRange] = useState([0, 4]);
 
     // Fixed horizontal padding (in px) to create side space
-    const horizontalPadding = 32;
+    const horizontalPadding = 10;
 
     // Calculate scale when pageSize or dimensions change >>>>>>>>
     // Single page on mobile, two-page spread on desktop. Animation params remain in loader.
