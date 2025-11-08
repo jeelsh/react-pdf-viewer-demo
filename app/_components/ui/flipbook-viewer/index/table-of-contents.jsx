@@ -471,70 +471,76 @@ const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage, items
       {/* Content */}
       <div className="flex-1 overflow-y-auto p-2">
         <nav className="space-y-1">
-          {toc.map((section) => (
-            <div key={section.id}>
-              {/* Section header */}
-              <button
-                onClick={() => toggleSection(section.id)}
-                className={cn(
-                  "w-full flex items-center justify-between p-2 text-left hover:bg-muted rounded-md transition-colors",
-                  currentPage >= section.page - 1 && "bg-muted/50"
-                )}
-              >
-                <div className="flex items-center gap-2 flex-1">
-                  <div className="flex items-center">
-                    {section.children ? (
-                      expandedSections[section.id] ? (
-                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                      ) : (
-                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                      )
-                    ) : (
-                      <FileText className="h-4 w-4 text-muted-foreground" />
-                    )}
-                  </div>
-                  <span className="text-sm font-medium text-foreground">
-                    {section.title}
-                  </span>
-                </div>
+          {toc.map((section) => {
+            const hasChildren = Array.isArray(section.children) && section.children.length > 0;
+            const isExpanded = !!expandedSections[section.id];
+            return (
+              <div key={section.id}>
+                {/* Section header: if has children -> toggle accordion, else navigate to page */}
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePageClick(section.page);
-                  }}
-                  className="text-xs text-muted-foreground hover:text-primary px-2 py-1 rounded hover:bg-primary/10 transition-colors"
+                  onClick={() => (hasChildren ? toggleSection(section.id) : handlePageClick(section.page))}
+                  aria-expanded={hasChildren ? isExpanded : undefined}
+                  className={cn(
+                    "w-full flex items-center justify-between p-2 text-left hover:bg-muted rounded-md transition-colors",
+                    currentPage >= section.page - 1 && "bg-muted/50"
+                  )}
                 >
-                  {section.page}
-                </button>
-              </button>
-
-              {/* Children */}
-              {section.children && expandedSections[section.id] && (
-                <div className="ml-4 mt-1 space-y-1">
-                  {section.children.map((child) => (
-                    <button
-                      key={child.id}
-                      onClick={() => handlePageClick(child.page)}
-                      className={cn(
-                        "w-full flex items-center justify-between p-2 text-left hover:bg-muted rounded-md transition-colors",
-                        currentPage === child.page - 1 && "bg-primary/10 border-l-2 border-primary"
+                  <div className="flex items-center gap-2 flex-1">
+                    <div className="flex items-center">
+                      {hasChildren ? (
+                        isExpanded ? (
+                          <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                        ) : (
+                          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                        )
+                      ) : (
+                        // No accordion icon for items without children: leave empty to match spacing
+                        <span aria-hidden className="inline-block h-4 w-4" />
                       )}
-                    >
-                      <div className="flex items-center gap-2 flex-1">
-                        <FileText className="h-3 w-3 text-muted-foreground" />
-                        <span className="text-sm text-muted-foreground">
-                          {child.title}
+                    </div>
+                    <span className="text-sm font-medium text-foreground">
+                      {section.title}
+                    </span>
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePageClick(section.page);
+                    }}
+                    className="text-xs text-muted-foreground hover:text-primary px-2 py-1 rounded hover:bg-primary/10 transition-colors"
+                  >
+                    {section.page}
+                  </button>
+                </button>
+
+                {/* Children */}
+                {hasChildren && isExpanded && (
+                  <div className="ml-4 mt-1 space-y-1">
+                    {section.children.map((child) => (
+                      <button
+                        key={child.id}
+                        onClick={() => handlePageClick(child.page)}
+                        className={cn(
+                          "w-full flex items-center justify-between p-2 text-left hover:bg-muted rounded-md transition-colors",
+                          currentPage === child.page - 1 && "bg-primary/10 border-l-2 border-primary"
+                        )}
+                      >
+                        <div className="flex items-center gap-2 flex-1">
+                          <FileText className="h-3 w-3 text-muted-foreground" />
+                          <span className="text-sm text-muted-foreground">
+                            {child.title}
+                          </span>
+                        </div>
+                        <span className="text-xs text-muted-foreground hover:text-primary px-1">
+                          {child.page}
                         </span>
-                      </div>
-                      <span className="text-xs text-muted-foreground hover:text-primary px-1">
-                        {child.page}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </nav>
       </div>
 
