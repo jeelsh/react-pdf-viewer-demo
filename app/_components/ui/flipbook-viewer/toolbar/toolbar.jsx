@@ -117,7 +117,7 @@ function SpotifyControls() {
             'user-read-playback-state',
         ]);
     };
-console.log(state, token);
+
     if (!token) {
         return (
             <div className="flex items-center gap-2">

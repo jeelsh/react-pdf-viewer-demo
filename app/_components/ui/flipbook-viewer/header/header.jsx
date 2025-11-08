@@ -10,7 +10,7 @@ const Header = ({
   onIndexToggle, 
   pdfDetails, 
   viewerStates, 
-  documentTitle = "Documento PDF" 
+  documentTitle = "Recetario" 
 }) => {
   const { width: screenWidth } = useScreenSize();
   const isMobileOrTablet = screenWidth < 1024; // lg breakpoint

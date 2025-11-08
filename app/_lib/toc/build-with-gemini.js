@@ -8,7 +8,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 export async function buildTocWithGemini({ totalPages, pages, language = 'es' }) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY is not set');
-console.log('Api key',apiKey);
+
   const genAI = new GoogleGenerativeAI(apiKey);
   // const models = await genAI.listModels();
   // console.log('Available models (short):', models.map(m => m.name || m.model || m.id));
@@ -30,9 +30,9 @@ console.log('Api key',apiKey);
     `${safePages.map(p => `# Page ${p.page}:\n${p.text}`).join('\n\n')}`,
     `Devuelve únicamente el JSON.`,
   ].join('\n');
-console.log('Prompt',prompt);
+
   const result = await model.generateContent({ contents: [{ role: 'user', parts: [{ text: prompt }] }] });
-  console.log('result', result);
+  
   const text = result?.response?.text?.() || result?.response?.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
   try {
