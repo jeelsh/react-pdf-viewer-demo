@@ -20,407 +20,96 @@ const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage, items
 
   // Datos de ejemplo para el índice (fallback si no hay items dinámicos)
   const tableOfContents = [
-    // Sección agregada desde el contenido provisto (Salsa Clásica)
     {
     "totalPages": 8,
     "items": [
-        {
-            "id": "1",
-            "title": "Pomarola 60 Recetas bailables",
+          {
+            "id": "page_1",
+            "title": "Pomarola 60 Recetas",
             "page": 1,
             "children": []
-        },
-        {
-            "id": "2",
-            "title": "Salsa Clásica",
-            "page": 4,
-            "children": [
-                {
-                    "id": "2.1",
-                    "title": "Alitas BBQ con papas fritas",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.2",
-                    "title": "Cóctel de langostinos en salsa rosé",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.3",
-                    "title": "Wantán frito con salsa tamarindo",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.4",
-                    "title": "Albóndigas con arroz",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.5",
-                    "title": "Rigatónis con salsa arrabbiata",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.6",
-                    "title": "Berenjena rellena",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.7",
-                    "title": "Arroz con mariscos",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.8",
-                    "title": "Pizza carnívora",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.9",
-                    "title": "Pizza margarita",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.10",
-                    "title": "Pizza veggie",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.11",
-                    "title": "Pastel de fideos",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.12",
-                    "title": "Fajitas Pomarola",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.13",
-                    "title": "Lasagna rosé",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.14",
-                    "title": "Pollo entomatado",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.15",
-                    "title": "Lasagna clásica",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.16",
-                    "title": "Tallarines con albóndigas de atún",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.17",
-                    "title": "Tequeños orientales con salsa agridulce",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.18",
-                    "title": "Lasagna de atún",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.19",
-                    "title": "Alitas en salsa BBQ tropical",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.20",
-                    "title": "Pizza a base de avena",
-                    "page": 4,
-                    "children": []
-                },
-                {
-                    "id": "2.21",
-                    "title": "Ñoquis con Salsa Vegetariana",
-                    "page": 8,
-                    "children": []
-                }
-            ]
-        },
-        {
-            "id": "3",
-            "title": "Concentrado de Tomate",
-            "page": 5,
-            "children": [
-                {
-                    "id": "3.1",
-                    "title": "Lentejas con pollo al horno",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.2",
-                    "title": "Garbanzos con seco de cordero",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.3",
-                    "title": "Trigo con queso",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.4",
-                    "title": "Pallares con seco de res",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.5",
-                    "title": "Arvejas con res",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.6",
-                    "title": "Parihuela",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.7",
-                    "title": "Relleno de arepas",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.8",
-                    "title": "Ossobuco al vino",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.9",
-                    "title": "Tornillos en salsa rosé con pollo a las finas hierbas",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.10",
-                    "title": "Chupe de pescado",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.11",
-                    "title": "Papa rellena",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.12",
-                    "title": "Picante de mariscos",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.13",
-                    "title": "Pescado a lo macho",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.14",
-                    "title": "Asado de res",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.15",
-                    "title": "Tallarines en salsa de vino, vegetales y carne",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.16",
-                    "title": "Estofado de carne",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.17",
-                    "title": "Guiso de atún",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.18",
-                    "title": "Arroz tapado",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.19",
-                    "title": "Caigua rellena",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.20",
-                    "title": "Pimiento verde relleno",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.21",
-                    "title": "Frejoles entomatados",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.22",
-                    "title": "Empanada",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.23",
-                    "title": "Sopa criolla",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.24",
-                    "title": "Estofado amazónico",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.25",
-                    "title": "Estofado de pavita",
-                    "page": 5,
-                    "children": []
-                },
-                {
-                    "id": "3.26",
-                    "title": "Arroz con chancho",
-                    "page": 5,
-                    "children": []
-                }
-            ]
-        },
-        {
-            "id": "4",
-            "title": "Salsa Bolognesa",
-            "page": 6,
-            "children": [
-                {
-                    "id": "4.1",
-                    "title": "Canelones rellenos",
-                    "page": 6,
-                    "children": []
-                },
-                {
-                    "id": "4.2",
-                    "title": "Spaghe tti a la bolognesa",
-                    "page": 6,
-                    "children": []
-                },
-                {
-                    "id": "4.3",
-                    "title": "Ravioles a la bolognesa",
-                    "page": 6,
-                    "children": []
-                },
-                {
-                    "id": "4.4",
-                    "title": "Canutos gratinados a la bolognesa",
-                    "page": 6,
-                    "children": []
-                },
-                {
-                    "id": "4.5",
-                    "title": "Pastel de papa a la bolognesa",
-                    "page": 6,
-                    "children": []
-                }
-            ]
-        },
-        {
-            "id": "5",
-            "title": "Salsa Casera",
-            "page": 7,
-            "children": [
-                {
-                    "id": "5.1",
-                    "title": "Fideos con salsa casera y pollo",
-                    "page": 7,
-                    "children": []
-                },
-                {
-                    "id": "5.2",
-                    "title": "Coditos en salsa de vegetales",
-                    "page": 7,
-                    "children": []
-                },
-                {
-                    "id": "5.3",
-                    "title": "Lasagna de berenjena",
-                    "page": 7,
-                    "children": []
-                },
-                {
-                    "id": "5.4",
-                    "title": "Berenjena a la parmesana",
-                    "page": 7,
-                    "children": []
-                },
-                {
-                    "id": "5.5",
-                    "title": "Milanesas de carne a la napolitana",
-                    "page": 7,
-                    "children": []
-                },
-                {
-                    "id": "5.6",
-                    "title": "Pechugas de pollo rellenas",
-                    "page": 7,
-                    "children": []
-                },
-                {
-                    "id": "5.7",
-                    "title": "Zapallo relleno con salsa Pomarola",
-                    "page": 7,
-                    "children": []
-                }
-                ]
-            }
+          },
+          {
+              "id": "page_2",
+              "title": "Salsas Base",
+              "page": 2,
+              "children": [
+                  {
+                      "id": "page_2_salsa_clasica",
+                      "title": "Salsa Clásica",
+                      "page": 2,
+                      "children": []
+                  },
+                  {
+                      "id": "page_2_centrado_tomate",
+                      "title": "Con Centrado de Tomate",
+                      "page": 2,
+                      "children": []
+                  }
+              ]
+          },
+          {
+              "id": "page_3",
+              "title": "Salsas Listas",
+              "page": 3,
+              "children": [
+                  {
+                      "id": "page_3_salsa_casera",
+                      "title": "Salsa Casera",
+                      "page": 3,
+                      "children": []
+                  },
+                  {
+                      "id": "page_3_salsa_bolognesa",
+                      "title": "Salsa Bolognesa",
+                      "page": 3,
+                      "children": []
+                  }
+              ]
+          },
+          {
+              "id": "page_4",
+              "title": "Recetas Salsa Clásica",
+              "page": 4,
+              "children": []
+          },
+          {
+              "id": "page_5",
+              "title": "Recetas Concentrado Tomate",
+              "page": 5,
+              "children": []
+          },
+          {
+              "id": "page_6",
+              "title": "Recetas Salsa Bolognesa",
+              "page": 6,
+              "children": []
+          },
+          {
+              "id": "page_7",
+              "title": "Recetas Salsa Casera",
+              "page": 7,
+              "children": []
+          },
+          {
+              "id": "page_8",
+              "title": "Ñoquis con Salsa Vegetariana",
+              "page": 8,
+              "children": []
+          }
         ]
     }
   ];
 
   const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }));
+    // Only one section open at a time.
+    // If the clicked section is currently closed -> open it and close all others.
+    // If it's currently open -> close it (result: no open sections).
+    setExpandedSections(prev => {
+      const willOpen = !prev[sectionId];
+      if (willOpen) return { [sectionId]: true };
+      return {};
+    });
   };
 
   const handlePageClick = (pageNumber) => {

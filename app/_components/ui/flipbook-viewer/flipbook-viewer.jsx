@@ -120,7 +120,7 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
                 onIndexToggle={handleIndexToggle}
                 pdfDetails={pdfDetails}
                 viewerStates={viewerStates}
-                documentTitle="Documento PDF"
+                documentTitle="Recetario"
               />
               
               {/* Main content area */}

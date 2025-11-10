@@ -12,7 +12,7 @@ export async function buildTocWithGemini({ totalPages, pages, language = 'es' })
   const genAI = new GoogleGenerativeAI(apiKey);
   // const models = await genAI.listModels();
   // console.log('Available models (short):', models.map(m => m.name || m.model || m.id));
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
 
   const safePages = Array.isArray(pages) ? pages.slice(0, Math.max(1, pages.length)) : [];
 
