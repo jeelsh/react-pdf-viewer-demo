@@ -23,8 +23,12 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails,
         if (pdfDetails && width && height) {
             const pageWidthCount = isMobileOrTablet ? 1 : 2;
             const availableWidth = Math.max(0, width - (horizontalPadding * 2));
+            
+            // Limit maximum width on large screens to prevent oversized display
+            const maxContentWidth = isMobileOrTablet ? availableWidth : Math.min(availableWidth, 1200);
+            
             const calculatedScale = Math.min(
-                availableWidth / (pageWidthCount * pdfDetails.width),
+                maxContentWidth / (pageWidthCount * pdfDetails.width),
                 height / pdfDetails.height
             );
             setScale(calculatedScale);
