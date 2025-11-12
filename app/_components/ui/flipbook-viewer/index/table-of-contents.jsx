@@ -130,14 +130,14 @@ const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage, items
       {/* Overlay for mobile/tablet */}
       {(isMobile || screenWidth < 1024) && (
         <div 
-          className="fixed inset-0 bg-black/50 z-40"
+          className="fixed inset-0 bg-black/50 z-[60]"
           onClick={onToggle}
           aria-label="Cerrar índice"
         />
       )}
       
       <div className={cn(
-        "left-0 top-0 h-full w-80 bg-background border-r border-border shadow-lg z-50 flex flex-col",
+        "left-0 top-0 h-full w-80 bg-background border-r border-border shadow-lg z-[70] flex flex-col",
         isMobile || screenWidth < 1024 
           ? "fixed" // Use fixed positioning on mobile and tablet to avoid pushing other elements
           : "absolute" // Use absolute positioning on desktop
