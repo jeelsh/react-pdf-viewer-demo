@@ -27,9 +27,13 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails,
             // Limit maximum width on large screens to prevent oversized display
             const maxContentWidth = isMobileOrTablet ? availableWidth : Math.min(availableWidth, 1200);
             
+            // Limit height for tablets to prevent pushing buttons too far down
+            // Use 70% of available height for tablets, full height for desktop
+            const maxContentHeight = isMobileOrTablet ? Math.min(height, height * 0.7) : height;
+            
             const calculatedScale = Math.min(
                 maxContentWidth / (pageWidthCount * pdfDetails.width),
-                height / pdfDetails.height
+                maxContentHeight / pdfDetails.height
             );
             setScale(calculatedScale);
             setWrapperCss({
