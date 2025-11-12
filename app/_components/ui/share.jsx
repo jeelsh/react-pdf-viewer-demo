@@ -36,9 +36,9 @@ const Share = ({ asChild, shareUrl, children }) => {
                     <Button 
                         variant='ghost' 
                         size='icon' 
-                        className='size-9 min-w-9 rounded-full hover:bg-white/10 transition-all'
+                        className='size-8 sm:size-9 min-w-8 sm:min-w-9 rounded-full hover:bg-white/10 transition-all'
                     >
-                        <Share2 className="size-5 min-w-5 text-foreground" />
+                        <Share2 className="size-4 sm:size-5 min-w-4 sm:min-w-5 text-foreground" />
                     </Button>
                 }
             </DropdownMenuTrigger>
