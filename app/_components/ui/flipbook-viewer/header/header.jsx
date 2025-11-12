@@ -49,15 +49,15 @@ const Header = ({
 
         {/* Right section - Document status/actions */}
         <div className="flex items-center gap-3">
-          {totalPages > 0 && (
+          {/* {totalPages > 0 && (
             <div className="hidden sm:flex items-center gap-2 text-xs text-muted-foreground">
               <Book className="h-4 w-4" />
               <span>{totalPages} páginas</span>
             </div>
-          )}
+          )} */}
           
           {/* Progress indicator */}
-          {totalPages > 0 && (
+          {/* {totalPages > 0 && (
             <div className="hidden md:flex items-center gap-2">
               <div className="w-24 h-1 bg-muted rounded-full overflow-hidden">
                 <div 
@@ -69,7 +69,7 @@ const Header = ({
                 {Math.round((currentPage / totalPages) * 100)}%
               </span>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
