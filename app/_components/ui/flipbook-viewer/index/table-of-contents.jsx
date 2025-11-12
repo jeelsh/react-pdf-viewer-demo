@@ -143,17 +143,17 @@ const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage, items
           : "absolute" // Use absolute positioning on desktop
       )}>
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-border">
+        <div className="flex items-center justify-between p-4 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="flex items-center gap-2">
           <BookOpen className="h-5 w-5 text-primary" />
           <h2 className="font-semibold text-foreground">Índice</h2>
         </div>
         <button
           onClick={onToggle}
-          className="p-1 hover:bg-muted rounded"
+          className="size-8 min-w-8 flex items-center justify-center hover:bg-white/10 rounded-full transition-all"
           aria-label="Cerrar índice"
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-5 w-5 text-foreground" />
         </button>
       </div>
 
@@ -170,17 +170,17 @@ const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage, items
                   onClick={() => (hasChildren ? toggleSection(section.id) : handlePageClick(section.page))}
                   aria-expanded={hasChildren ? isExpanded : undefined}
                   className={cn(
-                    "w-full flex items-center justify-between p-2 text-left hover:bg-muted rounded-md transition-colors",
-                    currentPage >= section.page - 1 && "bg-muted/50"
+                    "w-full flex items-center justify-between px-3 py-2.5 text-left hover:bg-white/5 rounded-lg transition-all",
+                    currentPage >= section.page - 1 && "bg-white/10"
                   )}
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <div className="flex items-center">
                       {hasChildren ? (
                         isExpanded ? (
-                          <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                          <ChevronDown className="h-4 w-4 text-foreground" />
                         ) : (
-                          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                          <ChevronRight className="h-4 w-4 text-foreground" />
                         )
                       ) : (
                         // No accordion icon for items without children: leave empty to match spacing
@@ -196,7 +196,7 @@ const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage, items
                       e.stopPropagation();
                       handlePageClick(section.page);
                     }}
-                    className="text-xs text-muted-foreground hover:text-primary px-2 py-1 rounded hover:bg-primary/10 transition-colors"
+                    className="text-xs text-muted-foreground hover:text-foreground px-2 py-1 rounded-full hover:bg-white/10 transition-all min-w-[2rem] text-center"
                   >
                     {section.page}
                   </button>
@@ -210,17 +210,17 @@ const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage, items
                         key={child.id}
                         onClick={() => handlePageClick(child.page)}
                         className={cn(
-                          "w-full flex items-center justify-between p-2 text-left hover:bg-muted rounded-md transition-colors",
-                          currentPage === child.page - 1 && "bg-primary/10 border-l-2 border-primary"
+                          "w-full flex items-center justify-between px-3 py-2 text-left hover:bg-white/5 rounded-lg transition-all",
+                          currentPage === child.page - 1 && "bg-white/10 border-l-2 border-primary"
                         )}
                       >
                         <div className="flex items-center gap-2 flex-1">
-                          <FileText className="h-3 w-3 text-muted-foreground" />
-                          <span className="text-sm text-muted-foreground">
+                          <FileText className="h-3.5 w-3.5 text-muted-foreground" />
+                          <span className="text-sm text-foreground">
                             {child.title}
                           </span>
                         </div>
-                        <span className="text-xs text-muted-foreground hover:text-primary px-1">
+                        <span className="text-xs text-muted-foreground hover:text-foreground px-2 py-1 rounded-full hover:bg-white/10 transition-all min-w-[2rem] text-center">
                           {child.page}
                         </span>
                       </button>
@@ -234,7 +234,7 @@ const TableOfContents = ({ isVisible, onToggle, onPageSelect, currentPage, items
       </div>
 
       {/* Footer */}
-      <div className="p-3 border-t border-border">
+      <div className="p-3 border-t border-border bg-background/80 backdrop-blur-sm">
         <div className="text-xs text-muted-foreground text-center">
           Página {currentPage + 1} de {Math.max(...toc.flatMap(s => [s.page, ...(s.children?.map(c => c.page) || [])]))}
         </div>

@@ -126,7 +126,7 @@ function SpotifyControls() {
                     variant="ghost" 
                     size="sm" 
                     onClick={onLogin}
-                    className="hover:bg-white/10 text-foreground transition-all"
+                    className="hover:bg-transparent text-foreground transition-all"
                 >
                     Login Spotify
                 </Button>

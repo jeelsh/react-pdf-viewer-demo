@@ -43,11 +43,6 @@ const Header = ({
               <h1 className="text-sm font-medium text-foreground truncate max-w-[200px] sm:max-w-[300px]">
                 {documentTitle}
               </h1>
-              {totalPages > 0 && (
-                <p className="text-xs text-muted-foreground">
-                  Página {currentPage} de {totalPages}
-                </p>
-              )}
             </div>
           </div>
         </div>
