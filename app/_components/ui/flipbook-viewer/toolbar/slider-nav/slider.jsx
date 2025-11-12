@@ -101,14 +101,15 @@ const Slider = ({ maxSlide = 10, currentSlide, onSlideChange, totalPages }) => {
         onSlideChange(debouncedValue);
     }, [debouncedValue, onSlideChange]);
     return (
-        <div className="py-4">
-            <div
-                ref={sliderRef}
-                className="relative w-full h-1 bg-white/20 backdrop-blur-sm rounded-full shadow-inner"
-                onPointerMove={handlePointerMove}
-                onPointerLeave={handlePointerLeave}
-                onPointerCancel={handlePointerLeave}
-            >
+        <div className="py-4 flex justify-center">
+            <div className="w-full lg:w-2/3 xl:w-3/4">
+                <div
+                    ref={sliderRef}
+                    className="relative w-full h-1 bg-white/20 backdrop-blur-sm rounded-full shadow-inner"
+                    onPointerMove={handlePointerMove}
+                    onPointerLeave={handlePointerLeave}
+                    onPointerCancel={handlePointerLeave}
+                >
                 <Draggable
                     axis="x"
                     bounds="parent"
@@ -138,6 +139,7 @@ const Slider = ({ maxSlide = 10, currentSlide, onSlideChange, totalPages }) => {
                         totalSlides={maxSlide}
                     />
                 </div>
+            </div>
             </div>
         </div>
     );
