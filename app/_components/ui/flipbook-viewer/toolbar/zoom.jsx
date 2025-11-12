@@ -9,9 +9,32 @@ const Zoom = ({ zoomScale, screenWidth }) => {
         <>
             {screenWidth > 768 &&
                 <>
-                    <Button onClick={() => zoomOut(0.25)} disabled={zoomScale == 1} variant='secondary' size='icon' className='size-8 min-w-8'><ZoomOut className="size-4 min-w-4" /></Button>
-                    <Button onClick={() => zoomIn(0.25)} disabled={zoomScale >= 5} variant='secondary' size='icon' className='size-8 min-w-8'><ZoomIn className="size-4 min-w-4" /></Button>
-                    <Button onClick={() => resetTransform()} variant='secondary' size='icon' className='size-8 min-w-8'><RotateCcw className="size-4 min-w-4" /></Button>
+                    <Button 
+                        onClick={() => zoomOut(0.25)} 
+                        disabled={zoomScale == 1} 
+                        variant='ghost' 
+                        size='icon' 
+                        className='size-9 min-w-9 rounded-full hover:bg-white/10 disabled:opacity-30 transition-all'
+                    >
+                        <ZoomOut className="size-5 min-w-5 text-foreground" />
+                    </Button>
+                    <Button 
+                        onClick={() => zoomIn(0.25)} 
+                        disabled={zoomScale >= 5} 
+                        variant='ghost' 
+                        size='icon' 
+                        className='size-9 min-w-9 rounded-full hover:bg-white/10 disabled:opacity-30 transition-all'
+                    >
+                        <ZoomIn className="size-5 min-w-5 text-foreground" />
+                    </Button>
+                    <Button 
+                        onClick={() => resetTransform()} 
+                        variant='ghost' 
+                        size='icon' 
+                        className='size-9 min-w-9 rounded-full hover:bg-white/10 transition-all'
+                    >
+                        <RotateCcw className="size-5 min-w-5 text-foreground" />
+                    </Button>
                 </>
             }
         </>

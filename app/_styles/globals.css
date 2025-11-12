@@ -5,7 +5,8 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+  /* Site background set to #4a020e */
+  --background: 350 40% 15%;
     --background2: 0 5% 96%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
@@ -36,7 +37,8 @@
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
+    /* Use the same custom background color in dark mode */
+    --background: 350 40% 15%;
     --background2: 0 0% 9%;
     --foreground: 0 0% 95%;
     --card: 24 9.8% 10%;
@@ -74,6 +76,15 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Make navigation and footer transparent so site background shows through */
+nav,
+footer,
+.site-nav,
+.site-footer {
+  background-color: transparent !important;
+  background: transparent !important;
 }
 
 @layer utilities {

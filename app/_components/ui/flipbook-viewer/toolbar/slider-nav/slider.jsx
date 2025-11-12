@@ -104,7 +104,7 @@ const Slider = ({ maxSlide = 10, currentSlide, onSlideChange, totalPages }) => {
         <div className="py-4">
             <div
                 ref={sliderRef}
-                className="relative w-full h-1 bg-foreground rounded-full"
+                className="relative w-full h-1 bg-white/20 backdrop-blur-sm rounded-full shadow-inner"
                 onPointerMove={handlePointerMove}
                 onPointerLeave={handlePointerLeave}
                 onPointerCancel={handlePointerLeave}
@@ -117,8 +117,8 @@ const Slider = ({ maxSlide = 10, currentSlide, onSlideChange, totalPages }) => {
                     onDrag={handleDrag}
                     onStop={() => setDragging(false)}
                 >
-                    <div className="absolute z-20 size-1 bg-primary rounded-full cursor-pointer">
-                        <div className={cn("size-3 hover:size-4 bg-primary absolute -top-1 hover:-top-1.5 -left-1 hover:-left-1.5 rounded-full transition-all", dragging && 'w-3 h-3 -left-1.5 -top-1.5 rounded-full')}></div>
+                    <div className="absolute z-20 size-1 bg-white rounded-full cursor-pointer shadow-lg">
+                        <div className={cn("size-3 hover:size-4 bg-white absolute -top-1 hover:-top-1.5 -left-1 hover:-left-1.5 rounded-full transition-all shadow-lg ring-2 ring-white/30", dragging && 'w-4 h-4 -left-1.5 -top-1.5 rounded-full ring-4')}></div>
                     </div>
                 </Draggable>
                 {/* // Click to change slide >>>>>>>>> */}
@@ -129,7 +129,7 @@ const Slider = ({ maxSlide = 10, currentSlide, onSlideChange, totalPages }) => {
                 {/* // Tooltip for hover value >>>>>>>>> */}
                 <div
                     ref={tooltipRef}
-                    className={cn('bg-primary/20 backdrop-blur-sm text-white rounded p-2 text-xs w-fit h-fit', hoverValue === null && 'opacity-0 w-0 h-0 select-none')}
+                    className={cn('bg-background/90 backdrop-blur-md border border-white/20 text-foreground rounded-lg px-3 py-2 text-xs w-fit h-fit shadow-xl', hoverValue === null && 'opacity-0 w-0 h-0 select-none')}
                     style={{ position: 'absolute', left: tooltipPosition.left, bottom: '20px' }}
                 >
                     <HoverItem

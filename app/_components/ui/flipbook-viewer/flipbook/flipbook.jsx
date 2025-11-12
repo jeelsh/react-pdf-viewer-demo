@@ -14,6 +14,8 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails,
 
     // Fixed horizontal padding (in px) to create side space
     const horizontalPadding = 10;
+    const paddingTop = 60;
+    const paddingBottom = 120; // Reserve space for toolbar overlay
 
     // Calculate scale when pageSize or dimensions change >>>>>>>>
     // Single page on mobile, two-page spread on desktop. Animation params remain in loader.
@@ -56,9 +58,9 @@ const Flipbook = memo(({ viewerStates, setViewerStates, flipbookRef, pdfDetails,
     }, [handleFullscreenChange]);
 
     return (
-        <div ref={ref} className={cn("relative h-full w-full bg-transparent flex justify-center items-center overflow-hidden", screenfull?.isFullscreen && 'h-[calc(100vh-5.163rem)] xs:h-[calc(100vh-5.163rem)] lg:h-[calc(100vh-5.163rem)] xl:h-[calc(100vh-4.66rem)]')}>
+        <div ref={ref} className={cn("relative h-full w-full bg-background flex justify-center items-center overflow-hidden", screenfull?.isFullscreen && 'h-[calc(100vh-5.163rem)] xs:h-[calc(100vh-5.163rem)] lg:h-[calc(100vh-5.163rem)] xl:h-[calc(100vh-4.66rem)]')}>
             <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }} contentStyle={{ width: "100%", height: "100%" }}>
-                <div className='overflow-hidden flex justify-center items-center h-full w-full' style={{ paddingLeft: horizontalPadding, paddingRight: horizontalPadding }}>
+                <div className='overflow-hidden flex justify-center items-center h-full w-full' style={{ paddingLeft: horizontalPadding, paddingRight: horizontalPadding, paddingTop: paddingTop, paddingBottom: paddingBottom }}>
                     {pdfDetails && scale && (
                         <div style={wrapperCss}>
                             <FlipbookLoader

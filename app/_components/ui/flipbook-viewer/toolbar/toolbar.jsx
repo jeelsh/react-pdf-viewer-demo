@@ -14,6 +14,9 @@ const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStat
     const isMobileOrTablet = screenWidth < 1024; // lg breakpoint
     const isMobile = screenWidth < 768;
 
+    // Fixed padding values
+    const paddingBottom = 10;
+
     // Full screen >>>>>>>>>
     const fullScreen = useCallback(() => {
         if (screenfull.isEnabled) {
@@ -41,61 +44,59 @@ const Toolbar = ({ flipbookRef, containerRef, screenfull, pdfDetails, viewerStat
     }, [flipbookRef, fullScreen]);
 
     return (
-        <div className="w-full bg-background">
-            <div className={`px-3 transition-all duration-300 ease-in-out ${!isMobileOrTablet && isIndexVisible ? 'ml-80' : 'ml-0'}`}>
-                <SliderNav
-                    flipbookRef={flipbookRef}
-                    pdfDetails={pdfDetails}
-                    viewerStates={viewerStates}
-                    screenWidth={screenWidth}
-                />
-                <div className="flex items-center gap-2 pb-2 max-xl:pt-2">
+        <div className="w-full absolute bottom-0 bg-transparent z-50" style={{ paddingBottom: paddingBottom }}>
+            <div className={`px-3 transition-all duration-300 ease-in-out ${!isMobileOrTablet && isIndexVisible ? 'ml-0' : 'ml-0'}`}>
+                {/* Slider with backdrop blur container */}
+                <div className="mb-2">
+                    <SliderNav
+                        flipbookRef={flipbookRef}
+                        pdfDetails={pdfDetails}
+                        viewerStates={viewerStates}
+                        screenWidth={screenWidth}
+                    />
+                </div>
+                <div className="flex items-center gap-3 pb-3">
                     <div className="hidden lg:block flex-1"></div>
-                    <Button
-                        onClick={() => { screenWidth < 768 ? flipbookRef.current.pageFlip().flipPrev() : flipbookRef.current.pageFlip().flipPrev() }}
-                        disabled={viewerStates.currentPageIndex === 0}
-                        variant='secondary'
-                        size='icon'
-                        className='size-8 min-w-8'
-                    >
-                        <ChevronLeft className="size-4 min-w-4" />
-                    </Button>
-                    <Button
-                        onClick={() => { screenWidth < 768 ? flipbookRef.current.pageFlip().flipNext() : flipbookRef.current.pageFlip().flipNext() }}
-                        disabled={isMobile ? (viewerStates.currentPageIndex === pdfDetails?.totalPages - 1) : (viewerStates.currentPageIndex === pdfDetails?.totalPages - 1 || viewerStates.currentPageIndex === pdfDetails?.totalPages - 2)}
-                        variant='secondary'
-                        size='icon'
-                        className='size-8 min-w-8'
-                    >
-                        <ChevronRight className="size-4 min-w-4" />
-                    </Button>
-                    <Zoom zoomScale={viewerStates.zoomScale} screenWidth={screenWidth} />
-                    {!disableShare && <Share shareUrl={shareUrl} />}
-                    <Button
-                        onClick={fullScreen}
-                        variant='secondary'
-                        size='icon'
-                        className='size-8 min-w-8'
-                    >
-                        {screenfull.isEnabled && screenfull.isFullscreen ?
-                            <Minimize className="size-4 min-w-4" /> :
-                            <Maximize className="size-4 min-w-4" />
-                        }
-                    </Button>
+                    {/* Main navigation controls with glass effect */}
+                    <div className="border border-white/20 rounded-full flex items-center gap-2 px-4 py-2 bg-background/80 backdrop-blur-md shadow-lg">
+                        <Button
+                            onClick={() => { screenWidth < 768 ? flipbookRef.current.pageFlip().flipPrev() : flipbookRef.current.pageFlip().flipPrev() }}
+                            disabled={viewerStates.currentPageIndex === 0}
+                            variant='ghost'
+                            size='icon'
+                            className='size-9 min-w-9 rounded-full hover:bg-white/10 disabled:opacity-30 transition-all'
+                        >
+                            <ChevronLeft className="size-5 min-w-5 text-foreground" />
+                        </Button>
+                        <Button
+                            onClick={() => { screenWidth < 768 ? flipbookRef.current.pageFlip().flipNext() : flipbookRef.current.pageFlip().flipNext() }}
+                            disabled={isMobile ? (viewerStates.currentPageIndex === pdfDetails?.totalPages - 1) : (viewerStates.currentPageIndex === pdfDetails?.totalPages - 1 || viewerStates.currentPageIndex === pdfDetails?.totalPages - 2)}
+                            variant='ghost'
+                            size='icon'
+                            className='size-9 min-w-9 rounded-full hover:bg-white/10 disabled:opacity-30 transition-all'
+                        >
+                            <ChevronRight className="size-5 min-w-5 text-foreground" />
+                        </Button>
+                        <div className="w-px h-6 bg-white/20 mx-1"></div>
+                        <Zoom zoomScale={viewerStates.zoomScale} screenWidth={screenWidth} />
+                        <div className="w-px h-6 bg-white/20 mx-1"></div>
+                        {!disableShare && <Share shareUrl={shareUrl} />}
+                        <div className="w-px h-6 bg-white/20 mx-1"></div>
+                        <Button
+                            onClick={fullScreen}
+                            variant='ghost'
+                            size='icon'
+                            className='size-9 min-w-9 rounded-full hover:bg-white/10 transition-all'
+                        >
+                            {screenfull.isEnabled && screenfull.isFullscreen ?
+                                <Minimize className="size-5 min-w-5 text-foreground" /> :
+                                <Maximize className="size-5 min-w-5 text-foreground" />
+                            }
+                        </Button>
+                    </div>
                     <div className="flex-1"></div>
-                    {/* Spotify Controls */}
+                    {/* Spotify Controls with glass effect */}
                     <SpotifyControls />
-                    {/* <div className="w-72 h-[80px] overflow-hidden rounded-md">
-                        <iframe
-                            title="Spotify Embed: Recommendation Playlist "
-                            src={`https://open.spotify.com/embed/playlist/5WE00BaJbf1b5d1rF66YtE?utm_source=generator&theme=0`}
-                            width="100%"
-                            height="100%"
-                            frameBorder="0"
-                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                            loading="lazy"
-                        />
-                    </div> */}
                 </div>
             </div>
         </div>
@@ -120,8 +121,13 @@ function SpotifyControls() {
 
     if (!token) {
         return (
-            <div className="flex items-center gap-2">
-                <Button variant="secondary" size="sm" onClick={onLogin}>
+            <div className="border border-white/20 rounded-full px-4 py-2 bg-background/80 backdrop-blur-md shadow-lg">
+                <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={onLogin}
+                    className="hover:bg-white/10 text-foreground transition-all"
+                >
                     Login Spotify
                 </Button>
             </div>
@@ -150,24 +156,45 @@ function SpotifyControls() {
     };
 
     return (
-        <div className="flex items-center gap-2">
-            <Button variant='secondary' size='icon' className='size-8 min-w-8' onClick={previous} disabled={!ready}>
-                <SkipBack className="size-4 min-w-4" />
+        <div className="border border-white/20 rounded-full flex items-center gap-3 px-4 py-2 bg-background/80 backdrop-blur-md shadow-lg">
+            <Button 
+                variant='ghost' 
+                size='icon' 
+                className='size-9 min-w-9 rounded-full hover:bg-white/10 disabled:opacity-30 transition-all' 
+                onClick={previous} 
+                disabled={!ready}
+            >
+                <SkipBack className="size-5 min-w-5 text-foreground" />
             </Button>
-            <Button variant='secondary' size='icon' className='size-8 min-w-8' onClick={handlePlay} disabled={!ready}>
+            <Button 
+                variant='ghost' 
+                size='icon' 
+                className='size-9 min-w-9 rounded-full hover:bg-white/10 disabled:opacity-30 transition-all' 
+                onClick={handlePlay} 
+                disabled={!ready}
+            >
                 {isPaused ? (
-                    <Play className="size-4 min-w-4" />
+                    <Play className="size-5 min-w-5 text-foreground" />
                 ) : (
-                    <Pause className="size-4 min-w-4" />
+                    <Pause className="size-5 min-w-5 text-foreground" />
                 )}
             </Button>
-            <Button variant='secondary' size='icon' className='size-8 min-w-8' onClick={next} disabled={!ready}>
-                <SkipForward className="size-4 min-w-4" />
+            <Button 
+                variant='ghost' 
+                size='icon' 
+                className='size-9 min-w-9 rounded-full hover:bg-white/10 disabled:opacity-30 transition-all' 
+                onClick={next} 
+                disabled={!ready}
+            >
+                <SkipForward className="size-5 min-w-5 text-foreground" />
             </Button>
             {track && (
-                <div className='ml-2 max-w-[220px] truncate text-xs font-medium'>
-                    {track.name} — {track.artists?.map(a => a.name).join(', ')}
-                </div>
+                <>
+                    <div className="w-px h-6 bg-white/20"></div>
+                    <div className='ml-1 max-w-[220px] truncate text-xs font-medium text-foreground'>
+                        {track.name} — {track.artists?.map(a => a.name).join(', ')}
+                    </div>
+                </>
             )}
         </div>
     );

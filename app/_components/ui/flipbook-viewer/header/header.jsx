@@ -18,11 +18,17 @@ const Header = ({
   const totalPages = pdfDetails?.totalPages || 0;
 
   return (
-    <div className="w-full bg-background border-b border-border">
+    // Make header visually transparent and overlay the content so the PDF shows under it.
+    // We keep text and icons visible. The left offset mirrors the index (sidebar) when open.
+    <div className={cn(
+      "w-full absolute top-0 right-0 z-40 bg-transparent border-b border-transparent",
+      // When the index (sidebar) is visible on desktop, offset the header to the right by 20rem (lg:left-80)
+      !isMobileOrTablet && isIndexVisible ? 'lg:left-80' : 'left-0'
+    )}>
       <div className={cn(
         "flex items-center justify-between px-4 py-3 transition-all duration-300 ease-in-out",
-        // Only apply margin on desktop (lg and up), not on mobile/tablet
-        !isMobileOrTablet && isIndexVisible ? "ml-80" : "ml-0"
+        // keep the same inner margin logic for layout consistency
+        !isMobileOrTablet && isIndexVisible ? "lg:ml-0" : "ml-0"
       )}>
         {/* Left section - Index toggle and document info */}
         <div className="flex items-center gap-4">

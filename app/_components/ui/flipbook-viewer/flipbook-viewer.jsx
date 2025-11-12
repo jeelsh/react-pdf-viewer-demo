@@ -123,9 +123,9 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
                 documentTitle="Recetario"
               />
               
-              {/* Main content area */}
+              {/* Main content area with relative positioning for absolute toolbar */}
               <div className={cn(
-                "flex-1 transition-all duration-300 ease-in-out",
+                "flex-1 relative transition-all duration-300 ease-in-out",
                 // Only apply margin on desktop (lg and up), not on mobile/tablet
                 !isMobileOrTablet && isIndexVisible ? "ml-80" : "ml-0"
               )}>
@@ -136,19 +136,19 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
                   pdfDetails={pdfDetails}
                   isMobileOrTablet={isMobileOrTablet}
                 />
+                
+                <Toolbar
+                  viewerStates={viewerStates}
+                  setViewerStates={setViewerStates}
+                  containerRef={containerRef}
+                  flipbookRef={flipbookRef}
+                  screenfull={screenfull}
+                  pdfDetails={pdfDetails}
+                  shareUrl={shareUrl}
+                  disableShare={disableShare}
+                  isIndexVisible={isIndexVisible}
+                />
               </div>
-              
-              <Toolbar
-                viewerStates={viewerStates}
-                setViewerStates={setViewerStates}
-                containerRef={containerRef}
-                flipbookRef={flipbookRef}
-                screenfull={screenfull}
-                pdfDetails={pdfDetails}
-                shareUrl={shareUrl}
-                disableShare={disableShare}
-                isIndexVisible={isIndexVisible}
-              />
             </div>
           </TransformWrapper >
         }
