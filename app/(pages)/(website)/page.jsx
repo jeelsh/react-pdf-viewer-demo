@@ -6,7 +6,7 @@ const Page = () => {
 
   return (
     <div className="block">
-      <FlipbookViewer pdfUrl='/recetas.pdf' shareUrl={shareUrl} />
+      <FlipbookViewer pdfUrl='/recetario_v2.pdf' shareUrl={shareUrl} />
     </div>
   )
 }

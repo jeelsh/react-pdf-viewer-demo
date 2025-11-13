@@ -55,13 +55,21 @@ const FlipbookViewer = ({ pdfUrl, shareUrl, className, disableShare }) => {
         const { extractPdfTextClient } = await import('@/app/_lib/pdf/extract-text-client');
         
         // Extract text on client (where pdfjs works properly)
-        const { totalPages, pages } = await extractPdfTextClient('receta-content.pdf');
+        const { totalPages, pages } = await extractPdfTextClient('recetario_v2.pdf');
+        
+        // Capture reset parameter from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const resetParam = urlParams.get('reset');
         
         // Send extracted text to server for Gemini processing
         const res = await fetch('/api/toc', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pages, totalPages }),
+          body: JSON.stringify({ 
+            pages, 
+            totalPages,
+            reset: resetParam === 'true' // Convert string to boolean
+          }),
         });
         
         if (!res.ok) return;
